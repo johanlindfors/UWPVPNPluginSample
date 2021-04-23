@@ -17,14 +17,12 @@
     <ClCompile Include="..\..\..\..\SharedContent\cpp\MainPage.xaml.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="SampleConfiguration.cpp" />
-    <ClCompile Include="Scenario5_ApplicationTriggerTask.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="..\..\..\..\SharedContent\cpp\App.xaml.h" />
     <ClInclude Include="..\..\..\..\SharedContent\cpp\MainPage.xaml.h" />
     <ClInclude Include="SampleConfiguration.h" />
-    <ClInclude Include="Scenario5_ApplicationTriggerTask.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
