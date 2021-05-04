@@ -1,0 +1,8 @@
+namespace VPNPlugin_VPNBackgroundTask
+{
+    [default_interface]
+    runtimeclass VpnTask : Windows.ApplicationModel.Background.IBackgroundTask
+    {
+        VpnTask();
+    }
+}
