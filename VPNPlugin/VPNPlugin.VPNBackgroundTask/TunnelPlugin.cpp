@@ -14,7 +14,7 @@ namespace VPNPlugin_VPNBackgroundTask
 	    : dSock(sock)
     {
     }
-	
+
     void TunnelPlugin::Connect(VpnChannel const& channel)
     {
 		this->dSock = DatagramSocket();
@@ -27,13 +27,13 @@ namespace VPNPlugin_VPNBackgroundTask
 		const HostName tunnelV4Addr(tmpStr);
 		// auto result = create_task(dSock->BindEndpointAsync(tunnelV4Addr, svcName));
 		dSock.BindServiceNameAsync(svcName).get();
-		
+
 		// Connect to the destination tunnel address on UDP socket.
 		tmpStr = unbox_value<hstring>(settings.Lookup(L"RemoteTunnelHost"));
 		const HostName remoteTunnelIP(tmpStr);
 		const auto remoteTunnelPort = unbox_value<hstring>(settings.Lookup(L"RemoteTunnelPort"));
 		this->dSock.ConnectAsync(remoteTunnelIP, remoteTunnelPort).get();
-		
+
 		std::vector<HostName> localV4Addrs;
 		tmpStr = unbox_value<hstring>(settings.Lookup(L"VPNInterfaceV4Addr"));
 		localV4Addrs.push_back(HostName(tmpStr)); // Local host name to be bound.
@@ -54,23 +54,23 @@ namespace VPNPlugin_VPNBackgroundTask
 		catch (hresult_error error)
 		{
 			auto code = error.code();
-			auto message = error.message();			
+			auto message = error.message();
 		}
     }
-	
+
     void TunnelPlugin::Disconnect(VpnChannel const& channel)
     {
         channel.Stop(); // TODO: The callback gets called twice on disconnect.
     }
-	
+
     void TunnelPlugin::GetKeepAlivePayload(VpnChannel const&, VpnPacketBuffer&)
     {
-    	
+
     }
-	
+
     void TunnelPlugin::Encapsulate(VpnChannel const&, VpnPacketBufferList const& packets, VpnPacketBufferList const& encapulatedPackets)
     {
-        // Right now simply forward whatever comes. 
+        // Right now simply forward whatever comes.
         while (packets.Size() > 0)
         {
 	        VpnPacketBuffer packet(packets.RemoveAtBegin());
@@ -79,10 +79,10 @@ namespace VPNPlugin_VPNBackgroundTask
             encapulatedPackets.Append(packet);
         }
     }
-	
+
     void TunnelPlugin::Decapsulate(VpnChannel const&, VpnPacketBuffer const& encapBuffer, VpnPacketBufferList const& decapsulatedPackets, winrt::Windows::Networking::Vpn::VpnPacketBufferList const&)
     {
-        // Right now simply forward whatever comes. 
+        // Right now simply forward whatever comes.
         while (encapBuffer)
         {
             decapsulatedPackets.Append(encapBuffer);
